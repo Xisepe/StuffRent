@@ -1,13 +1,12 @@
 package com.unnamedteam.stuffrent.service;
 
-import com.unnamedteam.stuffrent.model.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.unnamedteam.stuffrent.model.Users;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 public interface UserService {
-    User getUserByUsername(String username);
-    List<User> getAllUsers();
-    User saveUser(User user);
+    Users findUserByUsername(String username);
+    Users findUserByUsernameAndPassword(String username, String password);
+    List<Users> findAllUsers();
+    Users saveUser(Users users);
 }
