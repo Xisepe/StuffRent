@@ -1,8 +1,7 @@
-package com.unnamedteam.stuffrent.config.jwt;
+package com.unnamedteam.stuffrent.filters.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
