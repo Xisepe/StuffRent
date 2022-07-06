@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 public class UserController {
-    @Autowired
     private UserService service;
 
     @PostMapping(path = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
