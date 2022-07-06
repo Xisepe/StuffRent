@@ -30,11 +30,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long saveUser(User user) {
+    public User saveUser(User user) {
         User toSave = new User();
         toSave.setUsername(user.getUsername());
         toSave.setPassword(bCryptPasswordEncoder
                 .encode(user.getPassword()));
-        return userRepository.save(toSave).getId();
+        return userRepository.save(toSave);
     }
 }

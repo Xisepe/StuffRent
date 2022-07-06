@@ -34,9 +34,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         super.configure(http);
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService().passwordEncoder(bCryptPasswordEncoder);
-        super.configure(auth);
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService().passwordEncoder(bCryptPasswordEncoder);
+//        super.configure(auth);
+//    }
 }
