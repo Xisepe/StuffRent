@@ -5,9 +5,9 @@ import javax.validation.constraints.*;
 
 @Data
 public class RegistrationRequest {
-    @NotNull
+    @NotBlank(message = "Username cannot be blank!")
     private String username;
-    @NotNull
+    @NotBlank(message = "Password cannot be blank!")
     private String password;
 
 }

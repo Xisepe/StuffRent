@@ -3,6 +3,7 @@ package com.unnamedteam.stuffrent.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
@@ -14,9 +15,11 @@ public class Users implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Username cannot be empty")
     @Column(nullable = false, unique = true)
     private String username;
 
+    @NotBlank(message = "Password cannot be empty")
     @Column(nullable = false)
     private String password;
 
