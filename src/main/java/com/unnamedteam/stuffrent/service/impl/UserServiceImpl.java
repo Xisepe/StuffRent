@@ -31,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserDataFromDTO(Users user, UserDataDTO userDataDTO) {
+        if (user.getUserData() == null) {
+            user.setUserData(new UserData());
+        }
         UserData userData = user.getUserData();
         userData.setAddress(userDataDTO.getAddress());
         userData.setEmailAddress(userDataDTO.getEmailAddress());

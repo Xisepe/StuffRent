@@ -22,24 +22,11 @@ public class UserData implements Serializable {
 
     @NotNull
     private Long ownerId;
-
-    @NotBlank(message = "Имя не может быть пустым")
     private String firstName;
-
-    @NotBlank(message = "Фамилия не может быть пустой")
     private String lastName;
-
     private String thirdName;
-
-    @Size(min = 11, max = 12)
-    @Pattern(regexp = "\\+?\\d{11}")
     private String phoneNumber;
-
-    @Pattern(regexp = "^(?=.{1,64}@)[\\p{L}0-9_-]+(\\.[\\p{L}0-9_-]+)*@"
-             + "[^-][\\p{L}0-9-]+(\\.[\\p{L}0-9-]+)*(\\.[\\p{L}]{2,})$")
     private String emailAddress;
-
-    @NotBlank
     private String address;
 
 }

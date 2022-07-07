@@ -27,23 +27,8 @@ public class AuthController {
     private UserService userService;
     private JwtProvider jwtProvider;
 
-
-
-    @Operation(summary = "add user to database")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "User successfully added to database",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Users.class))}),
-            @ApiResponse(responseCode = "400",
-                    description = " Bad input",
-                    content = @Content),
-            @ApiResponse(responseCode = "409",
-            description = "User with same username already exists",
-            content = @Content)
-    })
     @PostMapping("/register")
-    public Users registerUser(@RequestBody @Valid RegistrationRequest request) {
+    public RegistrationRequest registerUser(@RequestBody @Valid RegistrationRequest request) {
         if (userService.findUserByUsername(request.getUsername()) != null) {
             throw new UsernameIsUsedException();
         }
@@ -51,19 +36,9 @@ public class AuthController {
         user.setUsername(request.getUsername());
         user.setPassword(request.getPassword());
         userService.saveUser(user);
-        return user;
+        return request;
     }
 
-    @Operation(summary = "authenticate")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Successfully got token",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AuthResponse.class))}),
-            @ApiResponse(responseCode = "400",
-                    description = " Bad input",
-                    content = @Content)
-    })
     @PostMapping("/auth")
     public AuthResponse auth(@RequestBody  @Valid AuthRequest request) {
         Users users = userService.findUserByUsernameAndPassword(request.getUsername(),request.getPassword());

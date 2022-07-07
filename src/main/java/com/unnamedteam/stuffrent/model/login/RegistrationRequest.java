@@ -9,9 +9,11 @@ import static com.unnamedteam.stuffrent.constants.ExceptionMessages.blankUsernam
 public class RegistrationRequest {
     @NotBlank(message = blankUsernameExceptionMessage)
     @Size(min = 1, max = 25)
+    @Pattern(regexp = "\\w")
     private String username;
     @NotBlank(message = blankPasswordExceptionMessage)
-    //@Size(min = 7, max = 25)
+    @Size(min = 5, max = 64)
+    @Pattern(regexp = "[\\w@#$%^&+=]")
     private String password;
 
 }
