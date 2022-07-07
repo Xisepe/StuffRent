@@ -1,6 +1,8 @@
 package com.unnamedteam.stuffrent.service.impl;
 
 import com.unnamedteam.stuffrent.model.client.Role;
+import com.unnamedteam.stuffrent.model.client.UserData;
+import com.unnamedteam.stuffrent.model.client.UserDataDTO;
 import com.unnamedteam.stuffrent.repository.RoleEntityRepository;
 import com.unnamedteam.stuffrent.repository.UserEntityRepository;
 import com.unnamedteam.stuffrent.model.client.Users;
@@ -25,6 +27,17 @@ public class UserServiceImpl implements UserService {
         users.setRole(userRole);
         users.setPassword(passwordEncoder.encode(users.getPassword()));
         return userRepository.save(users);
+    }
+
+    @Override
+    public void updateUserDataFromDTO(Users user, UserDataDTO userDataDTO) {
+        UserData userData = user.getUserData();
+        userData.setAddress(userDataDTO.getAddress());
+        userData.setEmailAddress(userDataDTO.getEmailAddress());
+        userData.setPhoneNumber(userDataDTO.getPhoneNumber());
+        userData.setFirstName(userDataDTO.getFirstName());
+        userData.setLastName(userDataDTO.getLastName());
+        userData.setThirdName(userDataDTO.getThirdName());
     }
 
     @Override

@@ -5,7 +5,6 @@ import com.unnamedteam.stuffrent.model.client.UserData;
 import com.unnamedteam.stuffrent.model.client.UserDataDTO;
 import com.unnamedteam.stuffrent.model.client.Users;
 import com.unnamedteam.stuffrent.model.client.mapper.UserDataDTOMapper;
-import com.unnamedteam.stuffrent.service.UserDataService;
 import com.unnamedteam.stuffrent.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +27,7 @@ public class UserDataController {
     public UserDataDTO updateUserData(@RequestHeader(name = HEADER_STRING) String token,
                                       @RequestBody UserDataDTO userDataDTO) {
         Users user = userService.findUserByUsername(jwtProvider.getUsernameFromToken(token));
-        UserData userData = user.getUserData();
-        userData.setAddress(userDataDTO.getAddress());
-        userData.setEmailAddress(userDataDTO.getEmailAddress());
-        userData.setPhoneNumber(userDataDTO.getPhoneNumber());
-        userData.setFirstName(userDataDTO.getFirstName());
-        userData.setLastName(userDataDTO.getLastName());
-        userData.setThirdName(userDataDTO.getThirdName());
+        userService.updateUserDataFromDTO(user, userDataDTO);
         return userDataDTO;
     }
 

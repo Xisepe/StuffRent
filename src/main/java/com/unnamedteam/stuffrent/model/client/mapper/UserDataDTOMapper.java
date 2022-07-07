@@ -5,7 +5,7 @@ import com.unnamedteam.stuffrent.model.client.Users;
 
 public class UserDataDTOMapper {
     public static UserDataDTO getDTO(Users user) {
-        return new UserDataDTO(user.getUsername(),
+        return new UserDataDTO(
                 user.getUserData().getFirstName(),
                 user.getUserData().getLastName(),
                 user.getUserData().getThirdName(),
