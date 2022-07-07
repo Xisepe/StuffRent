@@ -1,8 +1,7 @@
 package com.unnamedteam.stuffrent.controller;
 
 import com.unnamedteam.stuffrent.filters.jwt.JwtProvider;
-import com.unnamedteam.stuffrent.model.client.UserData;
-import com.unnamedteam.stuffrent.model.client.UserDataDTO;
+import com.unnamedteam.stuffrent.model.client.DTO.UserDataDTO;
 import com.unnamedteam.stuffrent.model.client.Users;
 import com.unnamedteam.stuffrent.model.client.mapper.UserDataDTOMapper;
 import com.unnamedteam.stuffrent.service.UserDataService;

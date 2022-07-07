@@ -20,7 +20,6 @@ public class UserData implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     private Long ownerId;
     private String firstName;
     private String lastName;

@@ -2,7 +2,7 @@ package com.unnamedteam.stuffrent.service.impl;
 
 import com.unnamedteam.stuffrent.model.client.Role;
 import com.unnamedteam.stuffrent.model.client.UserData;
-import com.unnamedteam.stuffrent.model.client.UserDataDTO;
+import com.unnamedteam.stuffrent.model.client.DTO.UserDataDTO;
 import com.unnamedteam.stuffrent.repository.RoleEntityRepository;
 import com.unnamedteam.stuffrent.repository.UserEntityRepository;
 import com.unnamedteam.stuffrent.model.client.Users;
@@ -10,8 +10,6 @@ import com.unnamedteam.stuffrent.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor

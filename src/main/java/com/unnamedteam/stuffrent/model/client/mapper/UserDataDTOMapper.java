@@ -1,6 +1,6 @@
 package com.unnamedteam.stuffrent.model.client.mapper;
 
-import com.unnamedteam.stuffrent.model.client.UserDataDTO;
+import com.unnamedteam.stuffrent.model.client.DTO.UserDataDTO;
 import com.unnamedteam.stuffrent.model.client.Users;
 
 public class UserDataDTOMapper {
