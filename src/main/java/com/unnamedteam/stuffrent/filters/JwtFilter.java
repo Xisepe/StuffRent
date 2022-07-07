@@ -1,11 +1,9 @@
 package com.unnamedteam.stuffrent.filters;
 
 import com.unnamedteam.stuffrent.filters.jwt.JwtProvider;
-import com.unnamedteam.stuffrent.model.security.UserDetailsImpl;
 import com.unnamedteam.stuffrent.model.security.UserDetailsServiceImpl;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,11 +18,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+import static com.unnamedteam.stuffrent.model.SecurityConstants.HEADER_STRING;
+import static com.unnamedteam.stuffrent.model.SecurityConstants.TOKEN_PREFIX;
+
+
 @Component
 @Log
 public class JwtFilter extends GenericFilterBean {
-
-    public static final String AUTHORIZATION = "Authorization";
 
     private JwtProvider jwtProvider;
     private UserDetailsServiceImpl userDetailsService;
@@ -39,7 +39,7 @@ public class JwtFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest,
                          ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
-        logger.info(JwtFilter.class.toString() + " do filter");
+        logger.info(JwtFilter.class + " do filter");
         String token = getTokenFromRequest((HttpServletRequest) servletRequest);
         if (token != null && jwtProvider.validateToken(token)) {
             String username = jwtProvider.getUsernameFromToken(token);
@@ -51,9 +51,9 @@ public class JwtFilter extends GenericFilterBean {
         filterChain.doFilter(servletRequest,servletResponse);
     }
     private String getTokenFromRequest(HttpServletRequest request) {
-        String bearer = request.getHeader(AUTHORIZATION);
-        if (StringUtils.hasText(bearer) && bearer.startsWith("Bearer ")) {
-            return bearer.substring(7);
+        String bearer = request.getHeader(HEADER_STRING);
+        if (StringUtils.hasText(bearer) && bearer.startsWith(TOKEN_PREFIX)) {
+            return bearer.substring(TOKEN_PREFIX.length());
         }
         return null;
     }

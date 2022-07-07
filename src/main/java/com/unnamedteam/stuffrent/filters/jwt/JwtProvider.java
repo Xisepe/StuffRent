@@ -7,11 +7,12 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import static com.unnamedteam.stuffrent.model.SecurityConstants.JWT_SECRET;
 
 @Component
 @Log
 public class JwtProvider {
-    private final String jwtSecret = "special";
+
     public String generateToken(String username) {
         Date date = Date.from(
                 LocalDate.now()
@@ -20,12 +21,12 @@ public class JwtProvider {
         return Jwts.builder()
                 .setSubject(username)
                 .setExpiration(date)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
                 .compact();
     }
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token);
             return true;
         } catch (ExpiredJwtException e) {
             log.severe("Token expired");
@@ -43,7 +44,7 @@ public class JwtProvider {
 
     public String getUsernameFromToken(String token) {
         return Jwts.parser()
-                .setSigningKey(jwtSecret)
+                .setSigningKey(JWT_SECRET)
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();

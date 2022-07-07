@@ -20,8 +20,6 @@ public class SecurityConfiguration {
 
     private JwtFilter filter;
 
-
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.httpBasic().disable()
