@@ -1,13 +1,13 @@
-package com.unnamedteam.stuffrent.controller.model;
+package com.unnamedteam.stuffrent.model.login;
 
 import lombok.Data;
-import javax.validation.constraints.*;
+
+import javax.validation.constraints.NotBlank;
 
 @Data
-public class RegistrationRequest {
+public class AuthRequest {
     @NotBlank(message = "Username cannot be blank!")
     private String username;
     @NotBlank(message = "Password cannot be blank!")
     private String password;
-
 }

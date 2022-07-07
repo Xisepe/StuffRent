@@ -1,4 +1,4 @@
-package com.unnamedteam.stuffrent.controller.model;
+package com.unnamedteam.stuffrent.model.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,8 +1,8 @@
 package com.unnamedteam.stuffrent.controller;
 
-import com.unnamedteam.stuffrent.controller.model.AuthRequest;
-import com.unnamedteam.stuffrent.controller.model.AuthResponse;
-import com.unnamedteam.stuffrent.controller.model.RegistrationRequest;
+import com.unnamedteam.stuffrent.model.login.AuthRequest;
+import com.unnamedteam.stuffrent.model.login.AuthResponse;
+import com.unnamedteam.stuffrent.model.login.RegistrationRequest;
 import com.unnamedteam.stuffrent.exeptions.WrongAuthParamException;
 import com.unnamedteam.stuffrent.filters.jwt.JwtProvider;
 import com.unnamedteam.stuffrent.model.Users;
