@@ -5,7 +5,7 @@ import com.unnamedteam.stuffrent.model.login.AuthResponse;
 import com.unnamedteam.stuffrent.model.login.RegistrationRequest;
 import com.unnamedteam.stuffrent.exeptions.WrongAuthParamException;
 import com.unnamedteam.stuffrent.filters.jwt.JwtProvider;
-import com.unnamedteam.stuffrent.model.Users;
+import com.unnamedteam.stuffrent.model.client.Users;
 import com.unnamedteam.stuffrent.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

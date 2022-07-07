@@ -18,8 +18,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-import static com.unnamedteam.stuffrent.model.SecurityConstants.HEADER_STRING;
-import static com.unnamedteam.stuffrent.model.SecurityConstants.TOKEN_PREFIX;
+import static com.unnamedteam.stuffrent.constants.SecurityConstants.HEADER_STRING;
+import static com.unnamedteam.stuffrent.constants.SecurityConstants.TOKEN_PREFIX;
 
 
 @Component

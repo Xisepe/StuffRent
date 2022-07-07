@@ -1,4 +1,4 @@
-package com.unnamedteam.stuffrent.model;
+package com.unnamedteam.stuffrent.model.client;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,9 +1,10 @@
-package com.unnamedteam.stuffrent.model;
+package com.unnamedteam.stuffrent.model.client;
 
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -16,10 +17,12 @@ public class Users implements Serializable {
     private Long id;
 
     @NotBlank(message = "Username cannot be empty")
+    @Size(min = 1, max = 25)
     @Column(nullable = false, unique = true)
     private String username;
 
     @NotBlank(message = "Password cannot be empty")
+    @Size(min = 7, max = 25)
     @Column(nullable = false)
     private String password;
 
@@ -27,8 +30,6 @@ public class Users implements Serializable {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @Embedded
-    private Contact contact;
 }
 
 

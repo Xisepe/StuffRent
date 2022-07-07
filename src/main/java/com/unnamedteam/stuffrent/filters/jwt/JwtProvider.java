@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import static com.unnamedteam.stuffrent.model.SecurityConstants.JWT_SECRET;
+import static com.unnamedteam.stuffrent.constants.SecurityConstants.JWT_SECRET;
 
 @Component
 @Log

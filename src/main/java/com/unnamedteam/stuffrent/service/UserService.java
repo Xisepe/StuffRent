@@ -1,6 +1,6 @@
 package com.unnamedteam.stuffrent.service;
 
-import com.unnamedteam.stuffrent.model.Users;
+import com.unnamedteam.stuffrent.model.client.Users;
 
 import java.util.List;
 

@@ -1,12 +1,11 @@
 package com.unnamedteam.stuffrent.service.impl;
 
-import com.unnamedteam.stuffrent.model.Role;
+import com.unnamedteam.stuffrent.model.client.Role;
 import com.unnamedteam.stuffrent.repository.RoleEntityRepository;
 import com.unnamedteam.stuffrent.repository.UserEntityRepository;
-import com.unnamedteam.stuffrent.model.Users;
+import com.unnamedteam.stuffrent.model.client.Users;
 import com.unnamedteam.stuffrent.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

@@ -4,10 +4,13 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
+import static com.unnamedteam.stuffrent.constants.ExceptionMessages.blankPasswordExceptionMessage;
+import static com.unnamedteam.stuffrent.constants.ExceptionMessages.blankUsernameExceptionMessage;
+
 @Data
 public class AuthRequest {
-    @NotBlank(message = "Username cannot be blank!")
+    @NotBlank(message = blankUsernameExceptionMessage)
     private String username;
-    @NotBlank(message = "Password cannot be blank!")
+    @NotBlank(message = blankPasswordExceptionMessage)
     private String password;
 }
