@@ -11,7 +11,7 @@ public class RegistrationRequest {
     @Size(min = 1, max = 25)
     private String username;
     @NotBlank(message = blankPasswordExceptionMessage)
-    @Size(min = 7, max = 25)
+    //@Size(min = 7, max = 25)
     private String password;
 
 }
