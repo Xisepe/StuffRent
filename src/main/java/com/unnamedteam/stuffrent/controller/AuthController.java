@@ -11,6 +11,7 @@ import lombok.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.unnamedteam.stuffrent.exeptions.UsernameIsUsedException;
 
 import javax.validation.Valid;
 
@@ -22,6 +23,9 @@ public class AuthController {
 
     @PostMapping("/register")
     public String registerUser(@RequestBody @Valid RegistrationRequest request) {
+        if (userService.findUserByUsername(request.getUsername()) != null) {
+            throw new UsernameIsUsedException();
+        }
         Users user = new Users();
         user.setUsername(request.getUsername());
         user.setPassword(request.getPassword());
