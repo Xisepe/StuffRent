@@ -9,6 +9,12 @@ import java.util.List;
 
 @Repository
 public interface ThingRepository extends JpaRepository <Thing, Long>{
-    Thing findThingByName(String name);
-    List<Thing> findAll();
+    Thing getThingByName(String name);
+
+    Thing getThingById(long id);
+
+    List<Thing> getAllThings();
+    void delete(Long thingId);
+
+    Thing save(Thing thing);
 }

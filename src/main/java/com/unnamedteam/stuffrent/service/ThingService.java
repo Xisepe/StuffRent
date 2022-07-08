@@ -6,6 +6,8 @@ import java.util.List;
 public interface ThingService {
     Thing getThingByName(String name);
 
+    Thing getThingById(long id);
+
     List<Thing> getAllThings();
     void delete(Long thingId);
 

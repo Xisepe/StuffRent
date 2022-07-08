@@ -16,9 +16,11 @@ public class ThingServiceImpl implements ThingService {
 
     @Override
     public Thing getThingByName(String name) {
-        return thingRepository.findThingByName(name);
+        return thingRepository.getThingByName(name);
     }
-
+    public Thing getThingById(long id){
+        return thingRepository.getThingById(id);
+    }
     @Override
     public List<Thing> getAllThings() {
         return thingRepository.findAll();
