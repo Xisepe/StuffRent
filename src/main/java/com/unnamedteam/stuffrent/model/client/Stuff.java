@@ -12,8 +12,10 @@ public class Stuff implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private Long userId;
     private String name;
-    private String photoName;
+    @Lob
+    private byte[] photo;
     private int cost;
     @Enumerated(EnumType.STRING)
     private Tags tag;
