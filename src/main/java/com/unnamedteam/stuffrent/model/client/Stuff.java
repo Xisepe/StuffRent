@@ -13,12 +13,9 @@ public class Stuff implements Serializable {
     private Integer id;
 
     private String name;
-    private String description;
-    private String photoURL;
-    private Integer cost;
+    private String photoName;
+    private int cost;
     @Enumerated(EnumType.STRING)
     private Tags tag;
-
-
-
+    private boolean isRented;
 }
