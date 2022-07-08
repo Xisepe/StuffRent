@@ -11,4 +11,5 @@ import java.util.List;
 public interface ThingTakenRepository extends JpaRepository <ThingTaken, Long>{
     ThingTaken findThingTakenByThingId(long thingId);
     List<ThingTaken> findAll();
+
 }
