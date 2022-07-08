@@ -27,23 +27,7 @@ public class Users implements Serializable {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToOne(mappedBy = "user",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            optional = false
-    )
-    private UserData userData;
 
-    public void setUserData(UserData userData) {
-        if (userData == null) {
-            if (this.userData != null) {
-                this.userData.setUser(null);
-            }
-        } else {
-            userData.setUser(this);
-        }
-        this.userData = userData;
-    }
 }
 
 

@@ -28,23 +28,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUserData(Users user, UserData userData) {
-        if (user.getUserData() == null) {
-            user.setUserData(userData);
-        } else {
-            UserData tmp = user.getUserData();
-            tmp.setFirstName(userData.getFirstName());
-            tmp.setLastName(userData.getLastName());
-            tmp.setThirdName(userData.getThirdName());
-            tmp.setAddress(userData.getAddress());
-            tmp.setPhoneNumber(userData.getPhoneNumber());
-            tmp.setEmailAddress(userData.getEmailAddress());
-            tmp.setAddress(userData.getAddress());
-        }
-        userRepository.save(user);
-    }
-
-    @Override
     public Users findUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
     }

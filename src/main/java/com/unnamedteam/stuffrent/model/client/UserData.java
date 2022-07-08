@@ -15,19 +15,13 @@ import java.io.Serializable;
 public class UserData implements Serializable {
 
     @Id
-    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    private Users user;
-
-
+    private Long userId;
     private String firstName;
     private String lastName;
     private String thirdName;
     private String phoneNumber;
     private String emailAddress;
     private String address;
-
 }

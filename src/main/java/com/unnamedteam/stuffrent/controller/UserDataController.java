@@ -21,6 +21,7 @@ import static com.unnamedteam.stuffrent.constants.SecurityConstants.TOKEN_PREFIX
 public class UserDataController {
 
     private UserService userService;
+    private UserDataService userDataService;
     private JwtProvider jwtProvider;
 
     @GetMapping("/user/data")
@@ -28,7 +29,8 @@ public class UserDataController {
         Users user = userService.findUserByUsername(
                 jwtProvider.getUsernameFromToken(
                         token.substring(TOKEN_PREFIX.length())));
-        return UserDataDTOMapper.getDTO(user);
+        UserData userData = userDataService.findUserDataByUserId(user.getId());
+        return UserDataDTOMapper.getDTO(userData);
     }
 
     @PostMapping("/user/data")
@@ -37,8 +39,8 @@ public class UserDataController {
         Users user = userService.findUserByUsername(
                 jwtProvider.getUsernameFromToken(
                         token.substring(TOKEN_PREFIX.length())));
-        UserData toUpdate = UserDataFromDTOMapper.getUserDataFromDTO(userDataDTO);
-        userService.updateUserData(user, toUpdate);
+        UserData userData = userDataService.findUserDataByUserId(user.getId());
+        userDataService.saveUserData(userData, user.getId(),userDataDTO);
         return userDataDTO;
     }
 

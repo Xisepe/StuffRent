@@ -12,6 +12,7 @@ public class Stuff implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String name;
     private String description;
     private String photoURL;
     private Integer cost;

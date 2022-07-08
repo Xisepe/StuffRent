@@ -8,5 +8,4 @@ public interface UserService {
     Users findUserByUsername(String username);
     Users findUserByUsernameAndPassword(String username, String password);
     Users saveUser(Users users);
-    void updateUserData(Users user, UserData userData);
 }

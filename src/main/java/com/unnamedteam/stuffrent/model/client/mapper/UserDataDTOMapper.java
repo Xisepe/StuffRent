@@ -1,19 +1,19 @@
 package com.unnamedteam.stuffrent.model.client.mapper;
 
 import com.unnamedteam.stuffrent.model.client.DTO.UserDataDTO;
-import com.unnamedteam.stuffrent.model.client.Users;
+import com.unnamedteam.stuffrent.model.client.UserData;
 
 public class UserDataDTOMapper {
-    public static UserDataDTO getDTO(Users user) {
-        if (user.getUserData() == null) {
+    public static UserDataDTO getDTO(UserData userData) {
+        if (userData == null) {
             return null;
         }
         return new UserDataDTO(
-                user.getUserData().getFirstName(),
-                user.getUserData().getLastName(),
-                user.getUserData().getThirdName(),
-                user.getUserData().getPhoneNumber(),
-                user.getUserData().getEmailAddress(),
-                user.getUserData().getAddress());
+                userData.getFirstName(),
+                userData.getLastName(),
+                userData.getThirdName(),
+                userData.getPhoneNumber(),
+                userData.getEmailAddress(),
+                userData.getAddress());
     }
 }
