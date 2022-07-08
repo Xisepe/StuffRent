@@ -3,7 +3,6 @@ package com.unnamedteam.stuffrent.service.impl;
 
 import com.unnamedteam.stuffrent.model.Thing;
 import com.unnamedteam.stuffrent.repository.ThingRepository;
-import com.unnamedteam.stuffrent.repository.model.User;
 import com.unnamedteam.stuffrent.service.ThingService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

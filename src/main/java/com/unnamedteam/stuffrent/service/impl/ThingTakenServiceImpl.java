@@ -10,12 +10,12 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ThingTakenServiceImpl {
+public class ThingTakenServiceImpl implements ThingTakenService{
     private final ThingTakenRepository thingTakenRepository;
 
     @Override
     public ThingTaken getThingTakenByThingId(long thingId){
-        ;return thingTakenRepository.findThingTakenByThingId(thingId);
+        return thingTakenRepository.findThingTakenByThingId(thingId);
     }
 
     @Override
