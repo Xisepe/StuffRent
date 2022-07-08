@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class UserDataServiceImpl implements UserDataService {
-
     private UserDataEntityRepository userDataEntityRepository;
-
     @Override
     public void saveUserData(UserData userData) {
         userDataEntityRepository.save(userData);

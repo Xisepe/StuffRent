@@ -28,17 +28,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUserDataFromDTO(Users user, UserDataDTO userDataDTO) {
+    public void updateUserData(Users user, UserData userData) {
         if (user.getUserData() == null) {
-            user.setUserData(new UserData());
+            user.setUserData(userData);
+        } else {
+            UserData tmp = user.getUserData();
+            tmp.setFirstName(userData.getFirstName());
+            tmp.setLastName(userData.getLastName());
+            tmp.setThirdName(userData.getThirdName());
+            tmp.setAddress(userData.getAddress());
+            tmp.setPhoneNumber(userData.getPhoneNumber());
+            tmp.setEmailAddress(userData.getEmailAddress());
+            tmp.setAddress(userData.getAddress());
         }
-        UserData userData = user.getUserData();
-        userData.setAddress(userDataDTO.getAddress());
-        userData.setEmailAddress(userDataDTO.getEmailAddress());
-        userData.setPhoneNumber(userDataDTO.getPhoneNumber());
-        userData.setFirstName(userDataDTO.getFirstName());
-        userData.setLastName(userDataDTO.getLastName());
-        userData.setThirdName(userDataDTO.getThirdName());
+        userRepository.save(user);
     }
 
     @Override

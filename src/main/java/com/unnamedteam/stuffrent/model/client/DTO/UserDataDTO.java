@@ -14,11 +14,13 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 public class UserDataDTO implements Serializable {
-    @Size(min = 1, max = 64)
+    @Size(max = 64)
+    @NotBlank
     @Pattern(regexp = "^[ЁёА-я]+$", message = namePatternException)
     private String firstName;
 
-    @Size(min = 1, max = 64)
+    @Size(max = 64)
+    @NotBlank
     @Pattern(regexp = "^[ЁёА-я]+$", message = namePatternException)
     private String lastName;
 

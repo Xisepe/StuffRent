@@ -8,12 +8,13 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "user_table")
-@Data
+@Table(name = "users")
+@Getter@Setter
 @NoArgsConstructor
 public class Users implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -26,10 +27,23 @@ public class Users implements Serializable {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToOne
-    @JoinColumn(name = "user_data_id")
+    @OneToOne(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            optional = false
+    )
     private UserData userData;
 
+    public void setUserData(UserData userData) {
+        if (userData == null) {
+            if (this.userData != null) {
+                this.userData.setUser(null);
+            }
+        } else {
+            userData.setUser(this);
+        }
+        this.userData = userData;
+    }
 }
 
 
