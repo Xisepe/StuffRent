@@ -4,6 +4,10 @@ springdoc:
   packages-to-scan: "com.unnamedteam.stuffrent"
   paths-to-match: "/**"
 spring:
+  servlet:
+    multipart:
+      max-file-size: 256KB
+      max-request-size: 256KB
   main:
     allow-bean-definition-overriding: true
   datasource:
@@ -18,6 +22,7 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
+storage:
+  location: ./uploads
 
 

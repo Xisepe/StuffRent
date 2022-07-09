@@ -1,10 +1,8 @@
-package com.unnamedteam.stuffrent.model.client;
+package com.unnamedteam.stuffrent.model.client.user;
 
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity

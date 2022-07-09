@@ -1,8 +1,6 @@
 package com.unnamedteam.stuffrent.service;
 
-import com.unnamedteam.stuffrent.model.client.DTO.UserDataDTO;
-import com.unnamedteam.stuffrent.model.client.UserData;
-import com.unnamedteam.stuffrent.model.client.Users;
+import com.unnamedteam.stuffrent.model.client.user.Users;
 
 public interface UserService {
     Users findUserByUsername(String username);

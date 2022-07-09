@@ -1,7 +1,7 @@
 package com.unnamedteam.stuffrent.service.impl;
 
 import com.unnamedteam.stuffrent.model.client.DTO.UserDataDTO;
-import com.unnamedteam.stuffrent.model.client.UserData;
+import com.unnamedteam.stuffrent.model.client.user.UserData;
 import com.unnamedteam.stuffrent.model.client.mapper.UserDataFromDTOMapper;
 import com.unnamedteam.stuffrent.repository.UserDataEntityRepository;
 import com.unnamedteam.stuffrent.service.UserDataService;

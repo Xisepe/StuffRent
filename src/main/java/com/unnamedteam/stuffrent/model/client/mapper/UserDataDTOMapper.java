@@ -1,7 +1,7 @@
 package com.unnamedteam.stuffrent.model.client.mapper;
 
 import com.unnamedteam.stuffrent.model.client.DTO.UserDataDTO;
-import com.unnamedteam.stuffrent.model.client.UserData;
+import com.unnamedteam.stuffrent.model.client.user.UserData;
 
 public class UserDataDTOMapper {
     public static UserDataDTO getDTO(UserData userData) {

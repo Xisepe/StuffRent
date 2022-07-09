@@ -1,20 +1,21 @@
 package com.unnamedteam.stuffrent.model.client.DTO;
 
-import com.unnamedteam.stuffrent.model.client.Tags;
+import com.unnamedteam.stuffrent.model.client.advert.Category;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
+
 import static com.unnamedteam.stuffrent.constants.ExceptionMessages.addressPatternException;
 
 @Data
-public class StuffDTO {
+public class AdvertDTO {
     @NotBlank
+    @Size(max = 32)
     @Pattern(regexp = "^[ЁёА-я 0-9]+$", message = addressPatternException)
     private String name;
-    @NotNull
-    private int cost;
-    @NotBlank
-    private Tags tag;
+
+    private Category category;
+
+    @Min(0)
+    private int price;
 }

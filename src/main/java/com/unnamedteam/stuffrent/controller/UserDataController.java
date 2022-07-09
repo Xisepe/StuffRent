@@ -2,10 +2,9 @@ package com.unnamedteam.stuffrent.controller;
 
 import com.unnamedteam.stuffrent.filters.jwt.JwtProvider;
 import com.unnamedteam.stuffrent.model.client.DTO.UserDataDTO;
-import com.unnamedteam.stuffrent.model.client.UserData;
-import com.unnamedteam.stuffrent.model.client.Users;
+import com.unnamedteam.stuffrent.model.client.user.UserData;
+import com.unnamedteam.stuffrent.model.client.user.Users;
 import com.unnamedteam.stuffrent.model.client.mapper.UserDataDTOMapper;
-import com.unnamedteam.stuffrent.model.client.mapper.UserDataFromDTOMapper;
 import com.unnamedteam.stuffrent.service.UserDataService;
 import com.unnamedteam.stuffrent.service.UserService;
 import lombok.AllArgsConstructor;
