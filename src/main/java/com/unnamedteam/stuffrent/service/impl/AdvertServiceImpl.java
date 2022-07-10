@@ -1,5 +1,6 @@
 package com.unnamedteam.stuffrent.service.impl;
 
+import com.unnamedteam.stuffrent.exeptions.URLException;
 import com.unnamedteam.stuffrent.model.client.DTO.AdvertDTO;
 import com.unnamedteam.stuffrent.model.client.DTO.ResponseAdvert;
 import com.unnamedteam.stuffrent.model.client.advert.Advert;
@@ -8,11 +9,10 @@ import com.unnamedteam.stuffrent.repository.AdvertEntityRepository;
 import com.unnamedteam.stuffrent.service.AdvertService;
 import com.unnamedteam.stuffrent.service.StorageService;
 import lombok.AllArgsConstructor;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 @Service
@@ -44,15 +44,15 @@ public class AdvertServiceImpl implements AdvertService {
     public ResponseAdvert convertAdvertToResponseAdvert(Advert advert) {
         String filename = advert.getAdvertData().getPhotoName();
         try {
-            Resource resource = storageService.loadAsResource(filename);
             return new ResponseAdvert(advert.getAdvertData().getName(),
                     advert.getAdvertData().getCategory(),
                     advert.getAdvertData().getPrice(),
                     advert.isRented(),
                     advert.getRentedById(),
-                    resource);
-        } catch (FileNotFoundException e) {
-            throw new com.unnamedteam.stuffrent.exeptions.FileNotFoundException("Could not find file");
+                    storageService.load(filename).toUri().toURL());
+        } catch (MalformedURLException e) {
+            throw new URLException();
         }
+
     }
 }

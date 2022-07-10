@@ -3,9 +3,9 @@ package com.unnamedteam.stuffrent.model.client.DTO;
 import com.unnamedteam.stuffrent.model.client.advert.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.core.io.Resource;
 
 import java.io.Serializable;
+import java.net.URL;
 
 @Data
 @AllArgsConstructor
@@ -15,5 +15,6 @@ public class ResponseAdvert implements Serializable {
     private Integer price;
     private Boolean isRented;
     private Long rentedById;
-    private Resource resource;
+    private URL url;
+
 }
