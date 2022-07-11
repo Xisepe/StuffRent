@@ -41,6 +41,6 @@ public class AuthController {
             throw new WrongAuthParamException();
         }
         String token = jwtProvider.generateToken(users.getUsername());
-        return new AuthResponse(token);
+        return new AuthResponse(token, users.getId());
     }
 }

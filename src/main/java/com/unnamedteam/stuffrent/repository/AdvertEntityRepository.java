@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface AdvertEntityRepository extends JpaRepository<Advert,Long> {
     List<Advert> findAllByOwnerId(Long ownerId);
+    Advert findAdvertById(Long id);
 }

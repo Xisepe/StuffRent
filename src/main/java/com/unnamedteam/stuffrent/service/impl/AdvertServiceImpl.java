@@ -44,7 +44,9 @@ public class AdvertServiceImpl implements AdvertService {
     public ResponseAdvert convertAdvertToResponseAdvert(Advert advert) {
         String filename = advert.getAdvertData().getPhotoName();
         try {
-            return new ResponseAdvert(advert.getAdvertData().getName(),
+            return new ResponseAdvert(
+                    advert.getId(),
+                    advert.getAdvertData().getName(),
                     advert.getAdvertData().getCategory(),
                     advert.getAdvertData().getPrice(),
                     advert.isRented(),
@@ -54,5 +56,10 @@ public class AdvertServiceImpl implements AdvertService {
             throw new URLException();
         }
 
+    }
+
+    @Override
+    public Advert getAdvertById(Long id) {
+        return advertRepository.findAdvertById(id);
     }
 }

@@ -10,6 +10,7 @@ import java.net.URL;
 @Data
 @AllArgsConstructor
 public class ResponseAdvert implements Serializable {
+    private Long id;
     private String name;
     private Category category;
     private Integer price;

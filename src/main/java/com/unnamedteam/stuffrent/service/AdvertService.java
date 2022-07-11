@@ -11,4 +11,5 @@ public interface AdvertService {
     void saveAdvert(AdvertDTO advertDTO, Long ownerId, MultipartFile file);
     List<Advert> findAllAdvertsByOwnerId(Long ownerId);
     ResponseAdvert convertAdvertToResponseAdvert(Advert advert);
+    Advert getAdvertById(Long id);
 }
