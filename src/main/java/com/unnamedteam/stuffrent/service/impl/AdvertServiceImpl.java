@@ -1,5 +1,6 @@
 package com.unnamedteam.stuffrent.service.impl;
 
+import com.unnamedteam.stuffrent.exeptions.AdvertNotFoundException;
 import com.unnamedteam.stuffrent.exeptions.URLException;
 import com.unnamedteam.stuffrent.model.client.DTO.AdvertDTO;
 import com.unnamedteam.stuffrent.model.client.DTO.ResponseAdvert;
@@ -61,5 +62,17 @@ public class AdvertServiceImpl implements AdvertService {
     @Override
     public Advert getAdvertById(Long id) {
         return advertRepository.findAdvertById(id);
+    }
+
+    @Override
+    public void checkAdvert(Advert advert) {
+        if (advert == null) {
+            throw new AdvertNotFoundException("Advert with such id not found");
+        }
+    }
+
+    @Override
+    public void updateAdvert(Advert advert, AdvertDTO advertDTO) {
+
     }
 }

@@ -12,4 +12,6 @@ public interface AdvertService {
     List<Advert> findAllAdvertsByOwnerId(Long ownerId);
     ResponseAdvert convertAdvertToResponseAdvert(Advert advert);
     Advert getAdvertById(Long id);
+    void checkAdvert(Advert advert);
+    void updateAdvert(Advert advert, AdvertDTO advertDTO);
 }

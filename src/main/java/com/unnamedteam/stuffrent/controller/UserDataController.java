@@ -32,12 +32,9 @@ public class UserDataController {
             @PathVariable Long id,
             @RequestHeader(HEADER_STRING) String token
     ) {
-        if (!jwtProvider.validateToken(token))
-            throw new InvalidTokenException("Invalid token");
+        jwtProvider.validateToken(token);
         Users user = userService.findUserById(id);
-        if (user == null) {
-            throw new UserNotFoundException("User not found");
-        }
+        userService.checkUser(user);
         UserData userData = userDataService.findUserDataByUserId(user.getId());
         return UserDataDTOMapper.getDTO(userData);
     }
@@ -46,14 +43,16 @@ public class UserDataController {
     public UserDataDTO updateUserData(@RequestHeader(name = HEADER_STRING) String token,
                                       @PathVariable Long id,
                                       @RequestBody @Valid UserDataDTO userDataDTO) {
+        jwtProvider.validateToken(token);
         Users user = userService.findUserByUsername(
                 jwtProvider.getUsernameFromToken(
                         token.substring(TOKEN_PREFIX.length())));
+        userService.checkUser(user);
         if (!user.getId().equals(id)) {
             throw new AccessDeniedException("Operation denied");
         }
         UserData userData = userDataService.findUserDataByUserId(user.getId());
-        userDataService.saveUserData(userData, user.getId(), userDataDTO);
+        userDataService.saveUserData(userData, id, userDataDTO);
         return userDataDTO;
     }
 

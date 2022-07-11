@@ -1,5 +1,6 @@
 package com.unnamedteam.stuffrent.filters.jwt;
 
+import com.unnamedteam.stuffrent.exeptions.InvalidTokenException;
 import io.jsonwebtoken.*;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Component;
@@ -48,5 +49,10 @@ public class JwtProvider {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    public void validate(String token) {
+        if (!validateToken(token))
+            throw new InvalidTokenException("Invalid token");
     }
 }

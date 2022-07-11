@@ -1,10 +1,12 @@
 package com.unnamedteam.stuffrent.controller;
 
 import com.unnamedteam.stuffrent.constants.SecurityConstants;
+import com.unnamedteam.stuffrent.exeptions.UserNotFoundException;
 import com.unnamedteam.stuffrent.filters.jwt.JwtProvider;
 import com.unnamedteam.stuffrent.model.client.DTO.AdvertDTO;
 import com.unnamedteam.stuffrent.model.client.DTO.ResponseAdvert;
 import com.unnamedteam.stuffrent.model.client.advert.Advert;
+import com.unnamedteam.stuffrent.model.client.user.Users;
 import com.unnamedteam.stuffrent.service.AdvertService;
 import com.unnamedteam.stuffrent.service.UserService;
 import lombok.AllArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,11 +34,14 @@ public class AdvertController {
     private AdvertService advertService;
     private JwtProvider jwtProvider;
 
-    @GetMapping("/user/advert")
-    public ResponseEntity<List<ResponseAdvert>> getAllAdverts(@RequestHeader(HEADER_STRING) String token) {
-        String username = jwtProvider.getUsernameFromToken(token.substring(TOKEN_PREFIX.length()));
-        Long userId = userService.findUserByUsername(username).getId();
-        List<Advert> adverts = advertService.findAllAdvertsByOwnerId(userId);
+    @GetMapping("/user/{id}/advert")
+    public ResponseEntity<List<ResponseAdvert>> getAllAdverts(
+            @RequestHeader(HEADER_STRING) String token,
+            @PathVariable Long id
+    ) {
+        jwtProvider.validate(token);
+        userService.checkUser(userService.findUserById(id));
+        List<Advert> adverts = advertService.findAllAdvertsByOwnerId(id);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION)
                 .body(adverts.stream()
@@ -43,11 +49,16 @@ public class AdvertController {
                         .collect(Collectors.toList()));
     }
 
-    @GetMapping("/user/advert/{id}")
+    @GetMapping("/user/{userId}/advert/{advertId}")
     public ResponseEntity<ResponseAdvert> getAdvertById(
-            @PathVariable Long id
+            @RequestHeader(HEADER_STRING) String token,
+            @PathVariable Long userId,
+            @PathVariable Long advertId
     ) {
-        Advert advert = advertService.getAdvertById(id);
+        jwtProvider.validate(token);
+        userService.checkUser(userService.findUserById(userId));
+        Advert advert = advertService.getAdvertById(advertId);
+        advertService.checkAdvert(advert);
         ResponseAdvert response = advertService.convertAdvertToResponseAdvert(advert);
         return ResponseEntity
                 .ok()
@@ -55,14 +66,38 @@ public class AdvertController {
 
     }
 
-    @PostMapping(value = "/user/advert/create", consumes = {MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping("/user/{userId}/advert/{advertId}")
+    public ResponseEntity<ResponseAdvert> updateAdvertById(
+            @RequestHeader(HEADER_STRING) String token,
+            @PathVariable Long userId,
+            @PathVariable Long advertId,
+            @RequestPart("file") MultipartFile multipartFile,
+            @RequestPart("json") @Valid AdvertDTO advertDTO
+    ) {
+        jwtProvider.validate(token);
+        userService.checkUser(userService.findUserById(userId));
+        Advert advert = advertService.getAdvertById(advertId);
+        advertService.checkAdvert(advert);
+
+        return null;
+    }
+
+    @PostMapping(value = "/user/{id}/advert", consumes = {MediaType.APPLICATION_JSON_VALUE,
             MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<String> saveAllUserAdvert(@RequestHeader(HEADER_STRING) String token,
-                                                    @RequestPart("file") MultipartFile multipartFile,
-                                                    @RequestPart("json") @Valid AdvertDTO advertDTO) {
+    public ResponseEntity<String> saveUserAdvert(
+            @RequestHeader(HEADER_STRING) String token,
+            @RequestPart("file") MultipartFile multipartFile,
+            @RequestPart("json") @Valid AdvertDTO advertDTO,
+            @PathVariable Long id
+    ) {
+        jwtProvider.validate(token);
         String username = jwtProvider.getUsernameFromToken(token.substring(TOKEN_PREFIX.length()));
-        Long userId = userService.findUserByUsername(username).getId();
-        advertService.saveAdvert(advertDTO, userId, multipartFile);
+        Users user = userService.findUserByUsername(username);
+        userService.checkUser(user);
+        if (!user.getId().equals(id)) {
+            throw new AccessDeniedException("Access denied");
+        }
+        advertService.saveAdvert(advertDTO, id, multipartFile);
         return new ResponseEntity<>("successfully saved", HttpStatus.OK);
     }
 

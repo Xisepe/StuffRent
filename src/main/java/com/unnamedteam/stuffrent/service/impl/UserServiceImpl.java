@@ -1,5 +1,6 @@
 package com.unnamedteam.stuffrent.service.impl;
 
+import com.unnamedteam.stuffrent.exeptions.UserNotFoundException;
 import com.unnamedteam.stuffrent.model.client.user.Role;
 import com.unnamedteam.stuffrent.repository.RoleEntityRepository;
 import com.unnamedteam.stuffrent.repository.UserEntityRepository;
@@ -28,6 +29,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users findUserById(Long id) {
         return userRepository.findUserById(id);
+    }
+
+    @Override
+    public void checkUser(Users user) {
+        if (user == null) {
+            throw new UserNotFoundException("User not found");
+        }
     }
 
     @Override
