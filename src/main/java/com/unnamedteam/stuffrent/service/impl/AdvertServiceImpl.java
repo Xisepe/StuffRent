@@ -33,7 +33,7 @@ public class AdvertServiceImpl implements AdvertService {
         AdvertData data = new AdvertData(advertDTO.getName(),
                 advertDTO.getCategory(),
                 advertDTO.getPrice(),
-                fileName);
+                fileName, null, null);
         advert.setAdvertData(data);
         advertRepository.save(advert);
     }
@@ -55,7 +55,9 @@ public class AdvertServiceImpl implements AdvertService {
                     advert.isRented(),
                     advert.getRentedById(),
                     advert.getOwnerId(),
-                    storageService.load(filename).toUri().toURL());
+                    storageService.load(filename).toUri().toURL(),
+                    advert.getAdvertData().getStartRent(),
+                    advert.getAdvertData().getEndRent());
         } catch (MalformedURLException e) {
             throw new URLException();
         }

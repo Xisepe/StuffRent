@@ -5,8 +5,8 @@ import lombok.*;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.time.LocalDate;
 import java.util.Calendar;
-
 
 @Embeddable
 @Getter@Setter
@@ -18,4 +18,6 @@ public class AdvertData {
     private Category category;
     private Integer price;
     private String photoName;
+    private LocalDate startRent;
+    private LocalDate endRent;
 }
