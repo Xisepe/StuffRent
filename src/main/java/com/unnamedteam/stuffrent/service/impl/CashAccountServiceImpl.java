@@ -18,6 +18,11 @@ public class CashAccountServiceImpl implements CashAccountService {
     private BankOperationService bankOperationService;
 
     @Override
+    public CashAccount findCashAccountByUserId(Long userId) {
+        return repository.findByUserId(userId);
+    }
+
+    @Override
     public Integer getBalance(Long userId) {
         return repository.findByUserId(userId).getAmount();
     }

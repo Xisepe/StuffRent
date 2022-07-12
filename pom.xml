@@ -11,7 +11,8 @@
     <groupId>com.unnamedteam</groupId>
     <artifactId>stuffrent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>stuffRent</name>
+    <name>devilRocket</name>
+    <packaging>jar</packaging>
     <description>stuffRent</description>
     <properties>
         <java.version>1.8</java.version>
@@ -25,6 +26,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
