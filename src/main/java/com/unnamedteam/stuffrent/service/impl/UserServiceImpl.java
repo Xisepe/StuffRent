@@ -2,7 +2,9 @@ package com.unnamedteam.stuffrent.service.impl;
 
 import com.unnamedteam.stuffrent.exeptions.NumberOfAdvertsExceededException;
 import com.unnamedteam.stuffrent.exeptions.UserNotFoundException;
+import com.unnamedteam.stuffrent.model.client.user.CashAccount;
 import com.unnamedteam.stuffrent.model.client.user.Role;
+import com.unnamedteam.stuffrent.repository.CashAccountEntityRepository;
 import com.unnamedteam.stuffrent.repository.RoleEntityRepository;
 import com.unnamedteam.stuffrent.repository.UserEntityRepository;
 import com.unnamedteam.stuffrent.model.client.user.Users;
@@ -18,6 +20,7 @@ public class UserServiceImpl implements UserService {
     private final UserEntityRepository userRepository;
     private final RoleEntityRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CashAccountEntityRepository cashRepository;
 
     @Override
     public Users saveUser(Users users) {
@@ -25,6 +28,10 @@ public class UserServiceImpl implements UserService {
         users.setRole(userRole);
         users.setPassword(passwordEncoder.encode(users.getPassword()));
         users.setNumberOfAdverts(0);
+        CashAccount account = new CashAccount();
+        account.setUserId(users.getId());
+        account.setAmount(0);
+        cashRepository.save(account);
         return userRepository.save(users);
     }
 

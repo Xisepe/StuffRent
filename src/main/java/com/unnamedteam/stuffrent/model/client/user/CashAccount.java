@@ -18,6 +18,5 @@ public class CashAccount {
     private Long id;
     private Long userId;
 
-    @NotNull
     private int amount;
 }

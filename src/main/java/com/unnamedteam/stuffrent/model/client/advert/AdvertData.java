@@ -1,12 +1,14 @@
 package com.unnamedteam.stuffrent.model.client.advert;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.LocalDate;
-import java.util.Calendar;
 
 @Embeddable
 @Getter@Setter

@@ -32,7 +32,7 @@ public class UserDataController {
             @PathVariable Long id,
             @RequestHeader(HEADER_STRING) String token
     ) {
-        jwtProvider.validateToken(token);
+        jwtProvider.validate(token);
         Users user = userService.findUserById(id);
         userService.checkUser(user);
         UserData userData = userDataService.findUserDataByUserId(user.getId());
@@ -43,7 +43,7 @@ public class UserDataController {
     public UserDataDTO updateUserData(@RequestHeader(name = HEADER_STRING) String token,
                                       @PathVariable Long id,
                                       @RequestBody @Valid UserDataDTO userDataDTO) {
-        jwtProvider.validateToken(token);
+        jwtProvider.validate(token);
         Users user = userService.findUserByUsername(
                 jwtProvider.getUsernameFromToken(
                         token.substring(TOKEN_PREFIX.length())));
