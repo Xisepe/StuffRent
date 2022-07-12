@@ -8,6 +8,8 @@ import com.unnamedteam.stuffrent.filters.jwt.JwtProvider;
 import com.unnamedteam.stuffrent.model.client.user.Users;
 import com.unnamedteam.stuffrent.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +24,11 @@ public class AuthController {
     private UserService userService;
     private JwtProvider jwtProvider;
 
+    @GetMapping("/register")
+    public ResponseEntity<String> getRegisterUserPage() {
+        return ResponseEntity.ok().body("OK");
+    }
+
     @PostMapping("/register")
     public RegistrationRequest registerUser(@RequestBody @Valid RegistrationRequest request) {
         if (userService.findUserByUsername(request.getUsername()) != null) {
@@ -32,6 +39,11 @@ public class AuthController {
         user.setPassword(request.getPassword());
         userService.saveUser(user);
         return request;
+    }
+
+    @GetMapping("/auth")
+    public ResponseEntity<String> authPage() {
+        return ResponseEntity.ok().body("OK");
     }
 
     @PostMapping("/auth")

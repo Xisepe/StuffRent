@@ -1,5 +1,6 @@
 package com.unnamedteam.stuffrent.service.impl;
 
+import com.unnamedteam.stuffrent.exeptions.NumberOfAdvertsExceededException;
 import com.unnamedteam.stuffrent.exeptions.UserNotFoundException;
 import com.unnamedteam.stuffrent.model.client.user.Role;
 import com.unnamedteam.stuffrent.repository.RoleEntityRepository;
@@ -23,6 +24,7 @@ public class UserServiceImpl implements UserService {
         Role userRole = roleRepository.findByName("ROLE_USER");
         users.setRole(userRole);
         users.setPassword(passwordEncoder.encode(users.getPassword()));
+        users.setNumberOfAdverts(0);
         return userRepository.save(users);
     }
 
@@ -35,6 +37,13 @@ public class UserServiceImpl implements UserService {
     public void checkUser(Users user) {
         if (user == null) {
             throw new UserNotFoundException("User not found");
+        }
+    }
+
+    @Override
+    public void checkNumberOfAdverts(Users user) {
+        if (user.getNumberOfAdverts() >= 10) {
+            throw new NumberOfAdvertsExceededException("Ограничение 10 объявлений");
         }
     }
 

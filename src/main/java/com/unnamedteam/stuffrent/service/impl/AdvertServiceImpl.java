@@ -6,6 +6,7 @@ import com.unnamedteam.stuffrent.model.client.DTO.AdvertDTO;
 import com.unnamedteam.stuffrent.model.client.DTO.ResponseAdvert;
 import com.unnamedteam.stuffrent.model.client.advert.Advert;
 import com.unnamedteam.stuffrent.model.client.advert.AdvertData;
+import com.unnamedteam.stuffrent.model.client.user.Users;
 import com.unnamedteam.stuffrent.repository.AdvertEntityRepository;
 import com.unnamedteam.stuffrent.service.AdvertService;
 import com.unnamedteam.stuffrent.service.StorageService;
@@ -24,9 +25,10 @@ public class AdvertServiceImpl implements AdvertService {
     private StorageService storageService;
 
     @Override
-    public void saveAdvert(AdvertDTO advertDTO, Long ownerId, MultipartFile file) {
+    public void saveAdvert(AdvertDTO advertDTO, Users owner, MultipartFile file) {
         Advert advert = new Advert();
-        advert.setOwnerId(ownerId);
+        advert.setOwnerId(owner.getId());
+        owner.setNumberOfAdverts(owner.getNumberOfAdverts() + 1);
         String fileName = storageService.store(file);
         AdvertData data = new AdvertData(advertDTO.getName(),
                 advertDTO.getCategory(),
@@ -52,6 +54,7 @@ public class AdvertServiceImpl implements AdvertService {
                     advert.getAdvertData().getPrice(),
                     advert.isRented(),
                     advert.getRentedById(),
+                    advert.getOwnerId(),
                     storageService.load(filename).toUri().toURL());
         } catch (MalformedURLException e) {
             throw new URLException();
@@ -71,8 +74,4 @@ public class AdvertServiceImpl implements AdvertService {
         }
     }
 
-    @Override
-    public void updateAdvert(Advert advert, AdvertDTO advertDTO) {
-
-    }
 }

@@ -16,6 +16,7 @@ public class ResponseAdvert implements Serializable {
     private Integer price;
     private Boolean isRented;
     private Long rentedById;
+    private Long ownerId;
     private URL url;
 
 }

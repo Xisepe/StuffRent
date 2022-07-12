@@ -66,22 +66,6 @@ public class AdvertController {
 
     }
 
-    @PostMapping("/user/{userId}/advert/{advertId}")
-    public ResponseEntity<ResponseAdvert> updateAdvertById(
-            @RequestHeader(HEADER_STRING) String token,
-            @PathVariable Long userId,
-            @PathVariable Long advertId,
-            @RequestPart("file") MultipartFile multipartFile,
-            @RequestPart("json") @Valid AdvertDTO advertDTO
-    ) {
-        jwtProvider.validate(token);
-        userService.checkUser(userService.findUserById(userId));
-        Advert advert = advertService.getAdvertById(advertId);
-        advertService.checkAdvert(advert);
-
-        return null;
-    }
-
     @PostMapping(value = "/user/{id}/advert", consumes = {MediaType.APPLICATION_JSON_VALUE,
             MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> saveUserAdvert(
@@ -94,10 +78,11 @@ public class AdvertController {
         String username = jwtProvider.getUsernameFromToken(token.substring(TOKEN_PREFIX.length()));
         Users user = userService.findUserByUsername(username);
         userService.checkUser(user);
+        userService.checkNumberOfAdverts(user);
         if (!user.getId().equals(id)) {
             throw new AccessDeniedException("Access denied");
         }
-        advertService.saveAdvert(advertDTO, id, multipartFile);
+        advertService.saveAdvert(advertDTO, user, multipartFile);
         return new ResponseEntity<>("successfully saved", HttpStatus.OK);
     }
 

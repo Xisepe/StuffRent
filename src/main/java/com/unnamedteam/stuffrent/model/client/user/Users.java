@@ -21,6 +21,8 @@ public class Users implements Serializable {
     @Column(nullable = false)
     private String password;
 
+    private int numberOfAdverts;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;

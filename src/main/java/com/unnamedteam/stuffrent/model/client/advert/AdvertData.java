@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.Calendar;
 
 
 @Embeddable
