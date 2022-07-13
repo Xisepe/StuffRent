@@ -28,11 +28,12 @@ public class UserServiceImpl implements UserService {
         users.setRole(userRole);
         users.setPassword(passwordEncoder.encode(users.getPassword()));
         users.setNumberOfAdverts(0);
+        Users toReturn = userRepository.save(users);
         CashAccount account = new CashAccount();
-        account.setUserId(users.getId());
+        account.setUserId(toReturn.getId());
         account.setAmount(0);
         cashRepository.save(account);
-        return userRepository.save(users);
+        return toReturn;
     }
 
     @Override
