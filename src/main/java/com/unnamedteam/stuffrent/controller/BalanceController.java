@@ -27,7 +27,7 @@ public class BalanceController {
         Users user = userService.findUserByUsername(
                 token.substring(TOKEN_PREFIX.length()));
         int balance = cashAccountService.getBalance(user.getId());
-        return ResponseEntity.ok(balance);
+        return ResponseEntity.ok().body(balance);
     }
     @GetMapping("/user/balance/deposit")
     ResponseEntity<Void> getDeposit(@RequestHeader(HEADER_STRING) String token) {
