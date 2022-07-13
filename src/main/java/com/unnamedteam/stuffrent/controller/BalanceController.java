@@ -23,41 +23,39 @@ public class BalanceController {
 
     @GetMapping("/user/balance")
     ResponseEntity<Integer> getBalance(@RequestHeader(HEADER_STRING) String token) {
-        jwtProvider.validate(token);
         Users user = userService.findUserByUsername(
-                token.substring(TOKEN_PREFIX.length()));
+                jwtProvider.getUsernameFromToken(
+                        token.substring(TOKEN_PREFIX.length())));
         int balance = cashAccountService.getBalance(user.getId());
         return ResponseEntity.ok().body(balance);
     }
     @GetMapping("/user/balance/deposit")
-    ResponseEntity<Void> getDeposit(@RequestHeader(HEADER_STRING) String token) {
-        jwtProvider.validate(token);
+    ResponseEntity<Void> getDeposit() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/user/balance/deposit")
     ResponseEntity<String> deposit(@RequestHeader(HEADER_STRING) String token,
                                    @RequestParam(name = "amount") Integer amount) {
-        jwtProvider.validate(token);
         Users user = userService.findUserByUsername(
-                token.substring(TOKEN_PREFIX.length()));
+                jwtProvider.getUsernameFromToken(
+                        token.substring(TOKEN_PREFIX.length())));
         CashAccount cashAccount = cashAccountService.findCashAccountByUserId(user.getId());
         cashAccountService.deposit(cashAccount, amount);
         return ResponseEntity.ok("Успешно пополнено");
     }
 
     @GetMapping("/user/balance/withdraw")
-    ResponseEntity<Void> getWithdraw(@RequestHeader(HEADER_STRING) String token) {
-        jwtProvider.validate(token);
+    ResponseEntity<Void> getWithdraw() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/user/balance/withdraw")
     ResponseEntity<String> withdraw(@RequestHeader(HEADER_STRING) String token,
                                    @RequestParam(name = "amount") Integer amount) {
-        jwtProvider.validate(token);
         Users user = userService.findUserByUsername(
-                token.substring(TOKEN_PREFIX.length()));
+                jwtProvider.getUsernameFromToken(
+                        token.substring(TOKEN_PREFIX.length())));
         CashAccount cashAccount = cashAccountService.findCashAccountByUserId(user.getId());
         cashAccountService.withdraw(cashAccount, amount);
         return ResponseEntity.ok("Успешно выведено");

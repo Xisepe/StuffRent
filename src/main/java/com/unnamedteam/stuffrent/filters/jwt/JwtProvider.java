@@ -1,15 +1,14 @@
 package com.unnamedteam.stuffrent.filters.jwt;
 
-import com.unnamedteam.stuffrent.exeptions.InvalidTokenException;
 import io.jsonwebtoken.*;
 import lombok.extern.java.Log;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import static com.unnamedteam.stuffrent.constants.SecurityConstants.JWT_SECRET;
-import static com.unnamedteam.stuffrent.constants.SecurityConstants.TOKEN_PREFIX;
 
 @Component
 @Log
@@ -27,9 +26,9 @@ public class JwtProvider {
                 .compact();
     }
     public boolean validateToken(String token) {
-        String tmp = token.substring(TOKEN_PREFIX.length());
+
         try {
-            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(tmp);
+            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token);
             return true;
         } catch (ExpiredJwtException e) {
             log.severe("Token expired");
@@ -51,10 +50,5 @@ public class JwtProvider {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
-    }
-
-    public void validate(String token) {
-        if (!validateToken(token))
-            throw new InvalidTokenException("Invalid token");
     }
 }

@@ -39,7 +39,6 @@ public class AdvertController {
             @RequestHeader(HEADER_STRING) String token,
             @PathVariable Long id
     ) {
-        jwtProvider.validate(token);
         userService.checkUser(userService.findUserById(id));
         List<Advert> adverts = advertService.findAllAdvertsByOwnerId(id);
         return ResponseEntity.ok()
@@ -51,11 +50,9 @@ public class AdvertController {
 
     @GetMapping("/user/{userId}/advert/{advertId}")
     public ResponseEntity<ResponseAdvert> getAdvertById(
-            @RequestHeader(HEADER_STRING) String token,
             @PathVariable Long userId,
             @PathVariable Long advertId
     ) {
-        jwtProvider.validate(token);
         userService.checkUser(userService.findUserById(userId));
         Advert advert = advertService.getAdvertById(advertId);
         advertService.checkAdvert(advert);
@@ -74,7 +71,6 @@ public class AdvertController {
             @RequestPart("json") @Valid AdvertDTO advertDTO,
             @PathVariable Long id
     ) {
-        jwtProvider.validate(token);
         String username = jwtProvider.getUsernameFromToken(token.substring(TOKEN_PREFIX.length()));
         Users user = userService.findUserByUsername(username);
         userService.checkUser(user);

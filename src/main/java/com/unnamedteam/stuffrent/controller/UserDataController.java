@@ -1,7 +1,5 @@
 package com.unnamedteam.stuffrent.controller;
 
-import com.unnamedteam.stuffrent.exeptions.InvalidTokenException;
-import com.unnamedteam.stuffrent.exeptions.UserNotFoundException;
 import com.unnamedteam.stuffrent.filters.jwt.JwtProvider;
 import com.unnamedteam.stuffrent.model.client.DTO.UserDataDTO;
 import com.unnamedteam.stuffrent.model.client.user.UserData;
@@ -11,7 +9,6 @@ import com.unnamedteam.stuffrent.service.UserDataService;
 import com.unnamedteam.stuffrent.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,11 +25,7 @@ public class UserDataController {
     private JwtProvider jwtProvider;
 
     @GetMapping("/user/{id}/personal")
-    public UserDataDTO getUserData(
-            @PathVariable Long id,
-            @RequestHeader(HEADER_STRING) String token
-    ) {
-        jwtProvider.validate(token);
+    public UserDataDTO getUserData(@PathVariable Long id) {
         Users user = userService.findUserById(id);
         userService.checkUser(user);
         UserData userData = userDataService.findUserDataByUserId(user.getId());
@@ -43,7 +36,6 @@ public class UserDataController {
     public UserDataDTO updateUserData(@RequestHeader(name = HEADER_STRING) String token,
                                       @PathVariable Long id,
                                       @RequestBody @Valid UserDataDTO userDataDTO) {
-        jwtProvider.validate(token);
         Users user = userService.findUserByUsername(
                 jwtProvider.getUsernameFromToken(
                         token.substring(TOKEN_PREFIX.length())));
