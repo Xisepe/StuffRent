@@ -11,9 +11,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:postgresql://ec2-63-32-248-14.eu-west-1.compute.amazonaws.com:5432/dqmgu9i274dva
-    username: oqkgtucstjeyts
-    password: 61a0ef00fa44488f7d48e5dff7e8c4cd1500572f3c5304816103d1e5870febe6
+    url: jdbc:postgresql://ec2-52-208-164-5.eu-west-1.compute.amazonaws.com:5432/dds4qborfslvv8
+    username: nmduamqrawmkdr
+    password: 06365007cb58fa6f2d1baa8a88eef0d2a4c991d588faab9bc134f1debd8370f1
     driver-class-name: org.postgresql.Driver
   jpa:
     database: postgresql
