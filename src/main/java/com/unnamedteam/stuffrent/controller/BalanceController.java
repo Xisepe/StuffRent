@@ -37,7 +37,7 @@ public class BalanceController {
 
     @PostMapping("/user/balance/deposit")
     ResponseEntity<String> deposit(@RequestHeader(HEADER_STRING) String token,
-                                   @RequestParam("amount") Integer amount) {
+                                   @RequestParam(name = "amount") Integer amount) {
         jwtProvider.validate(token);
         Users user = userService.findUserByUsername(
                 token.substring(TOKEN_PREFIX.length()));
@@ -54,7 +54,7 @@ public class BalanceController {
 
     @PostMapping("/user/balance/withdraw")
     ResponseEntity<String> withdraw(@RequestHeader(HEADER_STRING) String token,
-                                   @RequestParam("amount") Integer amount) {
+                                   @RequestParam(name = "amount") Integer amount) {
         jwtProvider.validate(token);
         Users user = userService.findUserByUsername(
                 token.substring(TOKEN_PREFIX.length()));
