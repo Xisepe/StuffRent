@@ -27,7 +27,6 @@ public class UserDataController {
     @GetMapping("/user/{id}/personal")
     public UserDataDTO getUserData(@PathVariable Long id) {
         Users user = userService.findUserById(id);
-        userService.checkUser(user);
         UserData userData = userDataService.findUserDataByUserId(user.getId());
         return UserDataDTOMapper.getDTO(userData);
     }
@@ -39,9 +38,8 @@ public class UserDataController {
         Users user = userService.findUserByUsername(
                 jwtProvider.getUsernameFromToken(
                         token.substring(TOKEN_PREFIX.length())));
-        userService.checkUser(user);
         if (!user.getId().equals(id)) {
-            throw new AccessDeniedException("Operation denied");
+            throw new AccessDeniedException("Операция запрещена");
         }
         UserData userData = userDataService.findUserDataByUserId(user.getId());
         userDataService.saveUserData(userData, id, userDataDTO);

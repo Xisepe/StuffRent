@@ -11,7 +11,9 @@ import java.util.List;
 public interface AdvertService {
     void saveAdvert(AdvertDTO advertDTO, Users owner, MultipartFile file);
     List<Advert> findAllAdvertsByOwnerId(Long ownerId);
+    List<Advert> findAll();
     ResponseAdvert convertAdvertToResponseAdvert(Advert advert);
     Advert getAdvertById(Long id);
-    void checkAdvert(Advert advert);
+    void checkAdvertOnExistence(Advert advert);
+    void checkAdvertOnRent(Advert advert);
 }

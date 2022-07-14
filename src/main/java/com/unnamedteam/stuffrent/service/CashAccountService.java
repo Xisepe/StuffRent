@@ -7,4 +7,7 @@ public interface CashAccountService {
     Integer getBalance(Long userId);
     void deposit(CashAccount cashAccount, int amount);
     void withdraw(CashAccount cashAccount, int amount);
+    void checkBalanceIfEnough(CashAccount cashAccount, int amount);
+    void transferRentBegin(CashAccount getAccount, CashAccount sendAccount, int amount);
+    void transferRentEnd(CashAccount getAccount, CashAccount sendAccount, int amount);
 }

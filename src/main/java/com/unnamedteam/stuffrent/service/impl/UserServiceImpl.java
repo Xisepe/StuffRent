@@ -38,7 +38,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users findUserById(Long id) {
-        return userRepository.findUserById(id);
+        Users userById = userRepository.findUserById(id);
+        checkUser(userById);
+        return userById;
     }
 
     @Override
@@ -57,7 +59,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users findUserByUsername(String username) {
-        return userRepository.findUserByUsername(username);
+        Users userByUsername = userRepository.findUserByUsername(username);
+        checkUser(userByUsername);
+        return userByUsername;
     }
 
     @Override

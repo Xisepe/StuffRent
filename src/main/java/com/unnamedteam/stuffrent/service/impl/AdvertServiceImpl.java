@@ -1,5 +1,6 @@
 package com.unnamedteam.stuffrent.service.impl;
 
+import com.unnamedteam.stuffrent.exeptions.AdvertIsRentedException;
 import com.unnamedteam.stuffrent.exeptions.AdvertNotFoundException;
 import com.unnamedteam.stuffrent.exeptions.URLException;
 import com.unnamedteam.stuffrent.model.client.DTO.AdvertDTO;
@@ -11,6 +12,7 @@ import com.unnamedteam.stuffrent.repository.AdvertEntityRepository;
 import com.unnamedteam.stuffrent.service.AdvertService;
 import com.unnamedteam.stuffrent.service.StorageService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,6 +46,11 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
+    public List<Advert> findAll() {
+        return advertRepository.findAll();
+    }
+
+    @Override
     public ResponseAdvert convertAdvertToResponseAdvert(Advert advert) {
         String filename = advert.getAdvertData().getPhotoName();
         try {
@@ -66,13 +73,22 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public Advert getAdvertById(Long id) {
-        return advertRepository.findAdvertById(id);
+        Advert advertById = advertRepository.findAdvertById(id);
+        checkAdvertOnExistence(advertById);
+        return advertById;
     }
 
     @Override
-    public void checkAdvert(Advert advert) {
+    public void checkAdvertOnExistence(Advert advert) {
         if (advert == null) {
-            throw new AdvertNotFoundException("Advert with such id not found");
+            throw new AdvertNotFoundException("Объявление с таким id не найдено");
+        }
+    }
+
+    @Override
+    public void checkAdvertOnRent(Advert advert) {
+        if (advert.isRented()) {
+            throw new AdvertIsRentedException("Вещь уже арендована!");
         }
     }
 

@@ -6,10 +6,12 @@ import com.unnamedteam.stuffrent.filters.jwt.JwtProvider;
 import com.unnamedteam.stuffrent.model.client.DTO.AdvertDTO;
 import com.unnamedteam.stuffrent.model.client.DTO.ResponseAdvert;
 import com.unnamedteam.stuffrent.model.client.advert.Advert;
+import com.unnamedteam.stuffrent.model.client.advert.Category;
 import com.unnamedteam.stuffrent.model.client.user.Users;
 import com.unnamedteam.stuffrent.service.AdvertService;
 import com.unnamedteam.stuffrent.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,9 +36,29 @@ public class AdvertController {
     private AdvertService advertService;
     private JwtProvider jwtProvider;
 
-    @GetMapping("/user/{id}/advert")
+
+    @GetMapping("/advert")
     public ResponseEntity<List<ResponseAdvert>> getAllAdverts(
-            @RequestHeader(HEADER_STRING) String token,
+            @RequestParam(name = "category", defaultValue = "ALL", required = false) String category,
+            @RequestParam(name = "name", defaultValue = "ALL", required = false) String name,
+            @RequestParam(name = "isRented", defaultValue = "ALL", required = false) String isRented
+    ) {
+        List<Advert> adverts = advertService.findAll();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION)
+                .body(adverts.stream()
+                        .filter(e -> category.equals("ALL")
+                                ||e.getAdvertData().getCategory().toString().equals(category))
+                        .filter(e -> name.equals("ALL")
+                                ||e.getAdvertData().getName().contains(name))
+                        .filter(e -> isRented.equals("ALL")
+                        || e.isRented() == isRented.equals("true"))
+                        .map(e -> advertService.convertAdvertToResponseAdvert(e))
+                        .collect(Collectors.toList()));
+    }
+
+    @GetMapping("/user/{id}/advert")
+    public ResponseEntity<List<ResponseAdvert>> getAllAdvertsByUserId(
             @PathVariable Long id
     ) {
         userService.checkUser(userService.findUserById(id));
@@ -55,7 +77,7 @@ public class AdvertController {
     ) {
         userService.checkUser(userService.findUserById(userId));
         Advert advert = advertService.getAdvertById(advertId);
-        advertService.checkAdvert(advert);
+        advertService.checkAdvertOnExistence(advert);
         ResponseAdvert response = advertService.convertAdvertToResponseAdvert(advert);
         return ResponseEntity
                 .ok()
@@ -76,10 +98,10 @@ public class AdvertController {
         userService.checkUser(user);
         userService.checkNumberOfAdverts(user);
         if (!user.getId().equals(id)) {
-            throw new AccessDeniedException("Access denied");
+            throw new AccessDeniedException("Действие запрещено");
         }
         advertService.saveAdvert(advertDTO, user, multipartFile);
-        return new ResponseEntity<>("successfully saved", HttpStatus.OK);
+        return new ResponseEntity<>("Успешно сохранено", HttpStatus.OK);
     }
 
 }

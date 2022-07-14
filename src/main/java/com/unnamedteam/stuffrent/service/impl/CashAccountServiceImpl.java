@@ -38,10 +38,26 @@ public class CashAccountServiceImpl implements CashAccountService {
     @Override
     public void withdraw(CashAccount cashAccount, int amount) {
         bankOperationService.startTransaction(cashAccount);
-        if (!checkBalance(cashAccount, amount))
-            throw new NotEnoughMoneyOnBalanceException("Not enough money on balance to end transaction");
+        checkBalanceIfEnough(cashAccount, amount);
         repository.save(cashAccount);
         bankOperationService.endTransaction(cashAccount);
+    }
+
+    @Override
+    public void checkBalanceIfEnough(CashAccount cashAccount, int amount) {
+        if (amount > cashAccount.getAmount()) {
+            throw new NotEnoughMoneyOnBalanceException("На вашем счету недосточно средств");
+        }
+    }
+
+    @Override
+    public void transferRentBegin(CashAccount getAccount, CashAccount sendAccount, int amount) {
+        withdraw(sendAccount, amount);
+    }
+
+    @Override
+    public void transferRentEnd(CashAccount getAccount, CashAccount sendAccount, int amount) {
+        deposit(getAccount, amount);
     }
 
     private boolean checkBalance(CashAccount cashAccount, int amount) {
