@@ -44,7 +44,7 @@ public class RentController {
             @RequestParam @Min(1) @Max(91) int days
     ) {
         String username = jwtProvider.getUsernameFromToken(token.substring(TOKEN_PREFIX.length()));
-        Users user = userService.findUserByUsername(username);
+        Users user = userService.findUserByUsernameWithCheck(username);
         checkSelfRent(user.getId(), userId);
         Advert advert = advertService.getAdvertById(advertId);
         advertService.checkAdvertOnRent(advert);
@@ -66,7 +66,7 @@ public class RentController {
             @PathVariable Long advertId
     ) {
         String username = jwtProvider.getUsernameFromToken(token.substring(TOKEN_PREFIX.length()));
-        Users user = userService.findUserByUsername(username);
+        Users user = userService.findUserByUsernameWithCheck(username);
         checkSelfRent(user.getId(), userId);
         Advert advert = advertService.getAdvertById(advertId);
         advertService.checkAdvertOnRent(advert);

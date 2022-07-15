@@ -23,7 +23,7 @@ public class BalanceController {
 
     @GetMapping("/user/balance")
     ResponseEntity<Integer> getBalance(@RequestHeader(HEADER_STRING) String token) {
-        Users user = userService.findUserByUsername(
+        Users user = userService.findUserByUsernameWithCheck(
                 jwtProvider.getUsernameFromToken(
                         token.substring(TOKEN_PREFIX.length())));
         int balance = cashAccountService.getBalance(user.getId());
@@ -37,7 +37,7 @@ public class BalanceController {
     @PostMapping("/user/balance/deposit")
     ResponseEntity<String> deposit(@RequestHeader(HEADER_STRING) String token,
                                    @RequestParam(name = "amount") Integer amount) {
-        Users user = userService.findUserByUsername(
+        Users user = userService.findUserByUsernameWithCheck(
                 jwtProvider.getUsernameFromToken(
                         token.substring(TOKEN_PREFIX.length())));
         CashAccount cashAccount = cashAccountService.findCashAccountByUserId(user.getId());
@@ -53,7 +53,7 @@ public class BalanceController {
     @PostMapping("/user/balance/withdraw")
     ResponseEntity<String> withdraw(@RequestHeader(HEADER_STRING) String token,
                                    @RequestParam(name = "amount") Integer amount) {
-        Users user = userService.findUserByUsername(
+        Users user = userService.findUserByUsernameWithCheck(
                 jwtProvider.getUsernameFromToken(
                         token.substring(TOKEN_PREFIX.length())));
         CashAccount cashAccount = cashAccountService.findCashAccountByUserId(user.getId());

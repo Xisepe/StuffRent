@@ -35,7 +35,7 @@ public class UserDataController {
     public UserDataDTO updateUserData(@RequestHeader(name = HEADER_STRING) String token,
                                       @PathVariable Long id,
                                       @RequestBody @Valid UserDataDTO userDataDTO) {
-        Users user = userService.findUserByUsername(
+        Users user = userService.findUserByUsernameWithCheck(
                 jwtProvider.getUsernameFromToken(
                         token.substring(TOKEN_PREFIX.length())));
         if (!user.getId().equals(id)) {

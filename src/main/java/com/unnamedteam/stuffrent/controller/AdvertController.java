@@ -61,7 +61,7 @@ public class AdvertController {
     public ResponseEntity<List<ResponseAdvert>> getAllAdvertsByUserId(
             @PathVariable Long id
     ) {
-        userService.checkUser(userService.findUserById(id));
+        userService.findUserById(id);
         List<Advert> adverts = advertService.findAllAdvertsByOwnerId(id);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION)
@@ -75,7 +75,7 @@ public class AdvertController {
             @PathVariable Long userId,
             @PathVariable Long advertId
     ) {
-        userService.checkUser(userService.findUserById(userId));
+        userService.findUserById(userId);
         Advert advert = advertService.getAdvertById(advertId);
         advertService.checkAdvertOnExistence(advert);
         ResponseAdvert response = advertService.convertAdvertToResponseAdvert(advert);
@@ -94,8 +94,7 @@ public class AdvertController {
             @PathVariable Long id
     ) {
         String username = jwtProvider.getUsernameFromToken(token.substring(TOKEN_PREFIX.length()));
-        Users user = userService.findUserByUsername(username);
-        userService.checkUser(user);
+        Users user = userService.findUserByUsernameWithCheck(username);
         userService.checkNumberOfAdverts(user);
         if (!user.getId().equals(id)) {
             throw new AccessDeniedException("Действие запрещено");
